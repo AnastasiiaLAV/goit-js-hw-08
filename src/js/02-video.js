@@ -1,33 +1,29 @@
 import Player from '@vimeo/player';
+import throttle from 'lodash.throttle';
 
-const player = new Player('handstick', {
-    id: 19231868,
-    width: 640
-});
 
-player.on('play', function() {
+const iframe = document.querySelector('iframe');
+
+const player = new Player(iframe);
+
+const throttled = throttle(timeUpdate, 300, { 'trailing': false })
+
+const LOCALSTORAGE_KEY = "videoplayer-current-time";
+
+function onPlay() {
     console.log('played the video!');
-});
 
+    playRepeat()
+}
 
+function timeUpdate({ seconds }) {
+    localStorage.setItem(LOCALSTORAGE_KEY, seconds);
+    console.log(seconds);
+}
 
+function playRepeat() {
+    player.setCurrentTime(localStorage.getItem(LOCALSTORAGE_KEY));
+}
 
-// const onPlay = function(data) {
-//     // data is an object containing properties specific to that event
-// };
-
-// player.on('play', onPlay);
-
-// player.setCurrentTime(30.456).then(function(seconds) {
-//     // seconds = the actual time that the player seeked to
-// }).catch(function(error) {
-//     switch (error.name) {
-//         case 'RangeError':
-//             // the time was less than 0 or greater than the video’s duration
-//             break;
-
-//         default:
-//             // some other error occurred
-//             break;
-//     }
-// });
+player.on('play', onPlay);
+player.on('timeupdate', throttled);
