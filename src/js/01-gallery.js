@@ -34,5 +34,5 @@ new SimpleLightbox('.gallery a', {
 let style = document.createElement('STYLE');
 style.type = 'text/css';
 style.innerHTML =
-    '.sl-overlay {background: linear-gradient(160deg, black, transparent)}';
+    '.sl-overlay {background: linear-gradient(160deg, black, transparent)} .sl-caption {font-family: Lobster, cursive}';
 document.querySelector('body').append(style);
