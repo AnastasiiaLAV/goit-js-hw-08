@@ -6,14 +6,12 @@ const iframe = document.querySelector('iframe');
 
 const player = new Player(iframe);
 
-const throttled = throttle(timeUpdate, 300, { 'trailing': false })
+const throttled = throttle(timeUpdate, 1000, { 'trailing': false })
 
 const LOCALSTORAGE_KEY = "videoplayer-current-time";
 
 function onPlay() {
     console.log('played the video!');
-
-    playRepeat()
 }
 
 function timeUpdate({ seconds }) {
@@ -22,8 +20,13 @@ function timeUpdate({ seconds }) {
 }
 
 function playRepeat() {
-    player.setCurrentTime(localStorage.getItem(LOCALSTORAGE_KEY));
+    const valueSeconds = localStorage.getItem(LOCALSTORAGE_KEY);
+    if (valueSeconds) {
+        player.setCurrentTime(valueSeconds);
+    }
 }
+
+playRepeat()
 
 player.on('play', onPlay);
 player.on('timeupdate', throttled);
