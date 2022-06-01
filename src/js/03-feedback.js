@@ -40,7 +40,6 @@ function onFormInput(e) {
 
 function addToText() {
     formData = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY));
-    console.log(formData)
     if (formData) {
         for (const key in formData) {
             refs.form[key].value = formData[key];
