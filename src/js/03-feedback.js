@@ -26,8 +26,6 @@ function onFormSubmit(e) {
 
     localStorage.removeItem(LOCALSTORAGE_KEY);
 
-    console.log(formData)
-
     for (const key in formData) {
         delete formData[key];
     }
