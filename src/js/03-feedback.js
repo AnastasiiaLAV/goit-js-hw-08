@@ -24,6 +24,8 @@ function onFormSubmit(e) {
     }
     e.currentTarget.reset();
 
+    console.log(formData);
+
     localStorage.removeItem(LOCALSTORAGE_KEY);
 
     for (const key in formData) {
